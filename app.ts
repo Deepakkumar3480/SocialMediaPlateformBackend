@@ -1,38 +1,46 @@
-const express = require("express");
-const dotenv = require("dotenv");
+import express, { Request, Response } from "express";
 const cors = require("cors")
+const dotenv = require("dotenv")
 
-// import type{ Request,Response } from 'express';
-// import userRoute from "./routes/UserRoute";
-import type { Request, Response } from "express";
 const userRoute = require("./routes/UserRoute.ts");
 const postRoute = require("./routes/PostRoute.ts");
 const courseRoute = require("./routes/CourseRoute.ts");
-const enrollmentRoute = require("./routes/EnrollmentRoute");
-const verifyToken = require("./middleware/AuthMiddleware.ts")
-
+const enrollmentRoute = require("./routes/EnrollmentRoute.ts");
+const saveRoute = require("./routes/SavedRoute.ts");
+const likeRoute = require("./routes/LikeRoute.ts");
+const commentRoute = require("./routes/CommentRoute.ts");
 
 dotenv.config();
 
 const app = express();
-app.use(cors({
+
+
+// Middlewares
+app.use(
+  cors({
     origin: "http://localhost:3000",
-    credentials: true
-}));
+    credentials: true,
+  })
+);
+
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
+
+// Routes
 app.use("/api/users", userRoute);
-app.use("/api/course",courseRoute);
-app.use("/api",enrollmentRoute)
-app.use("/api/post",postRoute)
+app.use("/api/course", courseRoute);
+app.use("/api/enroll", enrollmentRoute);
+app.use("/api/post", postRoute);
+app.use("/api/save", saveRoute);
+app.use("/api/like", likeRoute);
+app.use("/api/comment", commentRoute);
 
 
-app.get("/check", (req: Request, res: Response)=>{
-    res.status(200).send("Hello check")
-})
-
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, ()=>{
-    console.log(`Server is running on port ${PORT}`);
+// Health check
+app.get("/check", (req: Request, res: Response) => {
+  res.status(200).send("Hello check");
 });
+
+
+module.exports=app;

@@ -1,20 +1,7 @@
 import express from "express";
 import {
-  GetLikeCount,
-  LikePost,
-  UnlikePost,
-} from "../controller/LikeController";
-import {
-  AddComment,
-  DeleteComment,
-  GetCommentCount,
-  GetComments,
-  UpdateComment,
-} from "../controller/CommentController";
-import {
   CreatePost,
   GetAllPosts,
-  GetPostById,
   GetPostsByCourse,
   UpdatePost,
   DeletePost,
@@ -30,14 +17,6 @@ router.post("/", CreatePost);
 // GET /api/posts
 router.get("/", GetAllPosts);
 
-// Get Single Post By ID
-// GET /api/posts/:id
-router.get("/:id", GetPostById);
-
-// Get Complete Post Details
-// GET /api/posts/details/:id
-router.get("/details/:id", GetPostDetails);
-
 // Get Posts By Course
 // GET /api/posts/course/:courseId
 router.get("/course/:courseId", GetPostsByCourse);
@@ -50,26 +29,8 @@ router.put("/:id", UpdatePost);
 // DELETE /api/posts/:id
 router.delete("/:id", DeletePost);
 
+router.get("/details/:id", GetPostDetails);
+// router.get("/details/:id", GetPostById);
 
-
-
-//here the likes and the comment related apis
-router.get("/:id/likes/count", GetLikeCount);
-
-router.get("/:id/comments", GetComments);
-
-router.get("/:id/details", GetPostDetails);
-
-router.get("/:id/comments/count", GetCommentCount);
-
-router.post("/:id/like", LikePost);
-
-router.delete("/:id/like", UnlikePost);
-
-router.post("/:id/comments", AddComment);
-
-router.put("/comments/:commentId", UpdateComment);
-
-router.delete("/comments/:commentId", DeleteComment);
 
 module.exports = router;

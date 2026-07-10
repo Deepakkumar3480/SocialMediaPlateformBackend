@@ -10,8 +10,8 @@ const router = express.Router();
 
 router.post("/", SavePost);
 
-router.get("/", GetSavedPosts);
+router.get("/:id", GetSavedPosts);
 
-router.delete("/:postId", UnsavePost);
+router.delete("/", UnsavePost);
 
-export default router;
+module.exports=router;

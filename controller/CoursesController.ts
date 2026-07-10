@@ -290,7 +290,6 @@ export const GetCourseById = async(req:Request,res:Response)=>{
 };
 
 
-
 // Update Course
 export const UpdateCourse = async(req:Request,res:Response)=>{
 

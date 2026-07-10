@@ -309,70 +309,56 @@ const GetAllUsers = async(req:Request,res:Response)=>{
 
 
 // Get User By Id
-const GetUserById = async(req:Request,res:Response)=>{
+const GetUserById = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
 
+    const user = await prisma.user.findFirst({
+      where: {
+        id,
+        deletedAt: null,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
 
-    try{
+        enrollments: {
+          where: {
+            deletedAt: null,
+          },
+          select: {
+            id: true,
+            enrolledAt: true,
 
-
-        const id = Number(req.params.id);
-
-
-
-        const user = await prisma.user.findFirst({
-
-            where:{
-
-                id,
-
-                deletedAt:null
-
+            course: {
+              select: {
+                id: true,
+                title: true,
+                description: true,
+                createdAt: true,
+              },
             },
+          },
+        },
+      },
+    });
 
-
-            select:{
-
-                id:true,
-
-                name:true,
-
-                email:true,
-
-                role:true
-
-            }
-
-        });
-
-
-
-        if(!user){
-
-            return res.status(404).json({
-
-                message:"User not found"
-
-            });
-
-        }
-
-
-
-
-        return res.status(200).json(user);
-
-
-
-    }catch(error){
-
-        return res.status(500).json({
-
-            message:"Internal Server Error"
-
-        });
-
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
     }
 
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
 };
 
 

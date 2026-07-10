@@ -2,19 +2,16 @@ import { Request, Response } from "express";
 const prisma = require("../config/prisma.ts");
 
 
-
 // Add Comment
 export const AddComment = async(req:Request,res:Response)=>{
 
     try{
 
-        const userId = (req as Request & {user?: {id:number}}).user?.id;
-        const postId = Number(req.params.id);
-
-        const {content} = req.body;
+        const {userId,postId,content} = req.body;
+        
 
 
-        if(!userId){
+        if(!userId || !postId){
 
             return res.status(401).json({
                 message:"Unauthorized"
@@ -124,11 +121,6 @@ export const AddComment = async(req:Request,res:Response)=>{
 };
 
 
-
-
-
-
-
 // Get Comments
 export const GetComments = async(req:Request,res:Response)=>{
 
@@ -186,13 +178,6 @@ export const GetComments = async(req:Request,res:Response)=>{
     }
 
 };
-
-
-
-
-
-
-
 
 
 // Update Comment
@@ -290,13 +275,6 @@ export const UpdateComment = async(req:Request,res:Response)=>{
 };
 
 
-
-
-
-
-
-
-
 // Delete Comment (Soft Delete)
 export const DeleteComment = async(req:Request,res:Response)=>{
 
@@ -391,13 +369,6 @@ export const DeleteComment = async(req:Request,res:Response)=>{
     }
 
 };
-
-
-
-
-
-
-
 
 
 // Comment Count

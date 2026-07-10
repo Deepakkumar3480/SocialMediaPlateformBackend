@@ -2,10 +2,10 @@
   "name": "taskassignment",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
+  "main": "index.ts",
   "scripts": {
-    "dev": "nodemon --exec ts-node app.ts",
-    "start": "ts-node app.ts"
+    "dev": "nodemon --exec ts-node index.ts",
+    "start": "ts-node index.ts"
   },
   "keywords": [],
   "author": "",
@@ -30,5 +30,8 @@
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

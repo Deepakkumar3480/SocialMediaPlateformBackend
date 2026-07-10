@@ -30,13 +30,13 @@ model User {
   savedPosts  SavedPost[]
   likes       Like[]
   comments    Comment[]
+  views       View[]        // add this
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   deletedAt   DateTime?
 }
-
 
 model Course {
   id          Int          @id @default(autoincrement())
@@ -84,6 +84,7 @@ model Post {
   savedPosts  SavedPost[]
   likes       Like[]
   comments    Comment[]
+  views       View[]       // add this
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -142,4 +143,22 @@ model SavedPost {
   deletedAt DateTime?
 
   @@unique([userId,postId])
+}
+
+model View {
+
+  id        Int      @id @default(autoincrement())
+
+  userId    Int?
+  postId    Int
+
+  user      User?    @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+
+   @@unique([userId, postId])
+
 }
