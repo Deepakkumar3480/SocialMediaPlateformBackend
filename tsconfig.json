@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "esnext",
+    "types": ["node", "express"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ],
+    "strict": true,
+    "skipLibCheck": true
+  },
+
+  "include": [
+    "**/*.ts",
+    "**/*.d.ts"
+  ],
+
+  "ts-node": {
+    "files": true
+  }
+}
